@@ -1,7 +1,4 @@
-import axios from 'axios';
-import React, { useEffect } from 'react'
-import { useState } from 'react'
-import { CoinList } from '../config/api';
+import React, { useEffect,useState } from 'react'
 import { CryptoState } from '../CryptoContext';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Container, LinearProgress, Pagination, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@mui/material'
@@ -13,15 +10,12 @@ export function numberWithCommas(x) {
 }
 
 const CoinsTable = () => {
-    const [coins, setCoins] = useState([]);
-    const [loading, setLoading] = useState(false);
     const [search, setSearch] = useState("");
     const [page, setPage] = useState(1);
     const history = useNavigate();
 
 
-    const { currency, symbol } = CryptoState();
-
+    const { currency, symbol,coins, loading ,fetchCoins} = CryptoState();
     const darkTheme = createTheme({
         palette: {
             primary: {
@@ -49,12 +43,7 @@ const CoinsTable = () => {
 
     const classes = useStyles()
 
-    const fetchCoins = async () => {
-        setLoading(true)
-        const { data } = await axios.get(CoinList(currency));
-        setCoins(data);
-        setLoading(false);
-    }
+   
 
     useEffect(() => {
         fetchCoins();
@@ -113,7 +102,7 @@ const CoinsTable = () => {
                                                     className={classes.row}
                                                     key={row.name}
                                                 >
-                                                    <TableCell component='th' scope="row" styles={{ display: "flex", gap: 15 }}>
+                                                    <TableCell component='th' scope="row" styles={{ display: "flex", gap: 10 }}>
                                                         <img src={row.image} alt={row.name} height="50" style={{ marginBottom: 10 }} />
                                                         <div
                                                             style={{ display: "flex", flexDirection: "column" }}
@@ -148,7 +137,7 @@ const CoinsTable = () => {
                                                         {numberWithCommas(
                                                             row.market_cap.toString().slice(0, -6)
                                                         )}
-                                                        {symbol === "$" ? "M" : "L"}
+                                                        {symbol === "₹" ? "L" : "M"}
                                                     </TableCell>
                                                 </TableRow>
                                             )
@@ -160,7 +149,7 @@ const CoinsTable = () => {
                     }
                 </TableContainer>
                 <Pagination
-                    count={(handleSearch().length / 10).toFixed(0)}
+                    count={parseInt((handleSearch().length / 10).toFixed(0))}
                     style={{
                         padding: 20,
                         width: "100%",

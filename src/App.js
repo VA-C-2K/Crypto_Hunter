@@ -6,10 +6,10 @@ import Header from './components/Header';
 import Coinpage from './pages/Coinpage';
 import Homepage from './pages/Homepage';
 import {
-  createTheme,
   useTheme,
   ThemeProvider,
 } from "@mui/material";
+import Alert from './components/Alert'; 
 function App() {
 
   const useStyles = makeStyles(()=>({
@@ -30,6 +30,7 @@ function App() {
       <Route path="/coins/:id" element={<Coinpage />} />
      </Routes>
     </div>
+    <Alert/>
      </ThemeProvider>
   );
 }

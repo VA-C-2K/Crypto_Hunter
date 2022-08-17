@@ -96,7 +96,7 @@ const useStyles = makeStyles((theme)=>({
               style={{
                 display: "flex",
                 marginTop: 20,
-                justifyContent: "space-around",
+                justifyContent: "space-between",
                 width: "100%",
               }}
             >
@@ -107,8 +107,15 @@ const useStyles = makeStyles((theme)=>({
                   setflag(false);
                 }}
                 selected={day.value === days}
+                
               >
-                {day.label}
+               <span style={{
+                  display:"flex",
+                  textAlign:"center",
+                  alignItems:"center",
+                  justifyContent:"center",
+                  fontSize: 15
+                }}>{day.label}</span> 
               </SelectButton>
             ))}
               </div>

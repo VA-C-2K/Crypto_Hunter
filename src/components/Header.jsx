@@ -5,10 +5,12 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CryptoState } from '../CryptoContext';
 import cryptocurrencies from './assests/cryptocurrencies.png'
+import AuthModal from './Authentication/AuthModal';
+import UserSidebar from './Authentication/UserSidebar';
 
 const Header = () => {
     const history = useNavigate();
-    const {currency,setCurrency} = CryptoState();
+    const {currency,setCurrency,user} = CryptoState();
     const darkTheme = createTheme({
         palette: {
           primary: {
@@ -33,7 +35,7 @@ const Header = () => {
     <AppBar color="transparent" position="static">
       <Container>
         <Toolbar>
-          <img src={cryptocurrencies} height="50" alt="cryptocurrencies" style={{ marginRight:"20"}}/>
+          <img src={cryptocurrencies} height="40" alt="cryptocurrencies" style={{ marginRight:"10"}}/>
           <Typography
             onClick={() => history(`/`)}
             variant="h6"
@@ -41,7 +43,7 @@ const Header = () => {
           >
             Crypto Hunter
           </Typography>
-          {/* <Button color="inherit">Login</Button> */}
+          
           <FormControl sx={{ m: 1, minWidth: 80 }}>
           <InputLabel id="currency">Currency</InputLabel>
           <Select
@@ -50,13 +52,22 @@ const Header = () => {
             id="currency"
             label="Currency"
             value={currency}
-            style={{ width: 105, height: 40,marginTop:8,marginLeft: 5}}
+            style={{ width: 80, height: 40,marginTop:8,marginLeft: 5}}
             onChange={(e) => setCurrency(e.target.value)}
           >
-            <MenuItem value={"USD"}>USD</MenuItem>
             <MenuItem value={"INR"}>INR</MenuItem>
+            <MenuItem value={"USD"}>USD</MenuItem>
+            <MenuItem value={"EUR"}>EUR</MenuItem>
+            <MenuItem value={"RUB"}>RUB</MenuItem>
+            <MenuItem value={"AUD"}>AUD</MenuItem>
+            <MenuItem value={"GBP"}>GBP</MenuItem>
+            <MenuItem value={"AED"}>AED</MenuItem>
+            <MenuItem value={"CHF"}>CHF</MenuItem>
+            <MenuItem value={"BTC"}>BTC</MenuItem>
+            <MenuItem value={"ETH"}>ETH</MenuItem>
           </Select>
           </FormControl>
+          {user ? <UserSidebar/>:<AuthModal/>}
         </Toolbar>
       </Container>
     </AppBar>
