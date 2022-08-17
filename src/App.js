@@ -10,8 +10,8 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import Alert from './components/Alert'; 
-function App() {
 
+function App() {
   const useStyles = makeStyles(()=>({
     App:{
       backgroundColor:"#14161a",
