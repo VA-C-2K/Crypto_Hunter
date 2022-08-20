@@ -1,7 +1,6 @@
 import axios from "axios";
-import React,{ useState, useEffect } from 'react';
+import React,{ useState, useEffect, Suspense } from 'react';
 import { useParams } from 'react-router-dom';
-import CoinInfo from '../components/CoinInfo';
 import { SingleCoin } from '../config/api';
 import { CryptoState } from '../CryptoContext';
 import { makeStyles } from '@mui/styles';
@@ -10,6 +9,10 @@ import ReactHtmlParser from "react-html-parser";
 import { numberWithCommas } from '../components/CoinsTable';
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import ErrorFallback from "../components/ErrorBoundary";
+import { ErrorBoundary } from 'react-error-boundary';
+
+const CoinInfo = React.lazy(()=> import("../components/CoinInfo"));
 
 const Coinpage = () => {
   const { id } = useParams();
@@ -232,7 +235,13 @@ const Coinpage = () => {
         </div>
       
         </div>
-        <CoinInfo coin={coin} />
+        <ErrorBoundary FallbackComponent={ErrorFallback}
+    onReset={()=>{}}
+    >
+      <Suspense fallback={<LinearProgress style={{ backgroundColor: "gold" }}  />}>
+      <CoinInfo coin={coin} />
+      </Suspense>
+      </ErrorBoundary>
       </div>
   )
 }

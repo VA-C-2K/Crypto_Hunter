@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { createContext, useContext,useState,useEffect} from 'react'
+import React, { createContext, useContext,useState,useEffect} from 'react';
 import { CoinList } from './config/api';
 import { onAuthStateChanged } from "firebase/auth";
 import { onSnapshot, doc } from "firebase/firestore";
